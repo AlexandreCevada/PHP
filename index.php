@@ -1,14 +1,17 @@
+<!-- Lógica da calculadora em PHP -->
 <?php
 $resultado = '';
 $num1 = '';
 $num2 = '';
 $operacao = '';
 
+// Verifica se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $num1 = isset($_POST['num1']) ? floatval($_POST['num1']) : 0;
     $num2 = isset($_POST['num2']) ? floatval($_POST['num2']) : 0;
     $operacao = $_POST['operacao'] ?? '';
-    
+
+    // Realiza a operação com base na seleção do usuário
     switch ($operacao) {
         case 'somar':
             $resultado = $num1 + $num2;
@@ -41,6 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
+<!-- HTML e CSS para a interface da calculadora -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -54,7 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        /* Estilo do corpo da página */
         body {
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             min-height: 100vh;
@@ -63,7 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             align-items: center;
             padding: 20px;
         }
-        
+
+        /* Estilo da calculadora */
         .calculator {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
@@ -72,7 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             max-width: 450px;
             padding: 30px;
         }
-        
+
+        /* Estilo do título */
         h1 {
             color: #333;
             text-align: center;
@@ -80,11 +88,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-weight: 600;
             font-size: 2.2em;
         }
-        
+
+        /* Estilo do formulário */
         .form-group {
             margin-bottom: 20px;
         }
-        
+
+        /* Estilo dos rótulos e campos de entrada */
         label {
             display: block;
             margin-bottom: 8px;
@@ -92,6 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-weight: 500;
         }
         
+        /* Estilo dos campos de entrada e seleção */
         input, select {
             width: 100%;
             padding: 14px;
@@ -100,20 +111,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-size: 16px;
             transition: all 0.3s;
         }
-        
+
+        /* Estilo ao focar nos campos de entrada e seleção */
         input:focus, select:focus {
             border-color: #2575fc;
             outline: none;
             box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.1);
         }
         
+        /* Estilo do grupo de botões */
         .btn-group {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
             margin-top: 25px;
         }
-        
+
+        /* Estilo dos botões */
         button {
             background: linear-gradient(to right, #2575fc, #6a11cb);
             color: white;
@@ -125,20 +139,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             cursor: pointer;
             transition: all 0.3s;
         }
-        
+
+        /* Estilo ao passar o mouse sobre os botões */
         button:hover {
             transform: translateY(-3px);
             box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
         }
-        
+
+        /* Estilo do botão de reset */
         button[type="reset"] {
             background: linear-gradient(to right, #f46b45, #eea849);
         }
-        
+
+        /* Estilo ao passar o mouse sobre o botão de reset */
         button[type="reset"]:hover {
             background: linear-gradient(to right, #e55a37, #e89c42);
         }
-        
+
+        /* Estilo do resultado */
         .result {
             margin-top: 25px;
             padding: 20px;
@@ -146,25 +164,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-radius: 10px;
             border-left: 5px solid #2575fc;
         }
-        
+
+        /* Estilo do título do resultado */
         .result h3 {
             color: #333;
             margin-bottom: 10px;
         }
-        
+
+        /* Estilo do valor do resultado */
         .result-value {
             font-size: 2em;
             font-weight: 700;
             color: #2575fc;
             word-break: break-all;
         }
-        
+
+        /* Estilo das informações da operação */
         .operation-info {
             font-size: 0.9em;
             color: #666;
             margin-top: 5px;
         }
-        
+
+        /* Estilos responsivos para dispositivos móveis */
         @media (max-width: 480px) {
             .calculator {
                 padding: 20px;
@@ -180,12 +202,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="calculator">
         <h1>📟 Calculadora Interativa</h1>
         
+        <!-- Formulário da calculadora -->
         <form method="post">
             <div class="form-group">
                 <label for="num1">Primeiro Número:</label>
                 <input type="number" step="any" id="num1" name="num1" value="<?php echo htmlspecialchars($num1); ?>" required>
             </div>
-            
+
+            <!-- Seleção da operação -->
             <div class="form-group">
                 <label for="operacao">Operação:</label>
                 <select id="operacao" name="operacao" required>
@@ -194,22 +218,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <option value="subtrair" <?php echo ($operacao == 'subtrair') ? 'selected' : ''; ?>>Subtração (-)</option>
                     <option value="multiplicar" <?php echo ($operacao == 'multiplicar') ? 'selected' : ''; ?>>Multiplicação (×)</option>
                     <option value="dividir" <?php echo ($operacao == 'dividir') ? 'selected' : ''; ?>>Divisão (÷)</option>
-                    <option value="potencia" <?php echo ($operacao == 'potencia') ? 'selected' : ''; ?>>Potência (xʸ)</option>
+                    <option value="potência" <?php echo ($operacao == 'potencia') ? 'selected' : ''; ?>>Potência (xʸ)</option>
                     <option value="raiz" <?php echo ($operacao == 'raiz') ? 'selected' : ''; ?>>Raiz Quadrada (√)</option>
                 </select>
             </div>
             
+            <!-- Campo para o segundo número -->
             <div class="form-group" id="num2-group">
                 <label for="num2">Segundo Número:</label>
                 <input type="number" step="any" id="num2" name="num2" value="<?php echo htmlspecialchars($num2); ?>" required>
             </div>
-            
+
+            <!-- Botões de calcular e limpar -->
             <div class="btn-group">
                 <button type="submit">Calcular</button>
                 <button type="reset" onclick="limparResultado()">Limpar</button>
             </div>
         </form>
-        
+
+        <!-- Exibição do resultado -->
         <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && $resultado !== ''): ?>
         <div class="result">
             <h3>Resultado:</h3>
